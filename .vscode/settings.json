@@ -1,4 +1,5 @@
 {
+  "dart.flutterSdkPath": ".fvm/flutter_sdk",
   "files.exclude": {
     ".dart_tool": true,
     ".idea": true,

@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:flapp/data/model/result/result.dart';
+import 'package:canaspad/data/model/result/result.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'xxx_repository.dart';
@@ -10,6 +10,7 @@ final xxxRepositoryProvider =
 
 class XXXRepositoryImpl implements XXXRepository {
   XXXRepositoryImpl(this._reader);
+  // ignore: unused_field
   final Reader _reader;
 
   @override

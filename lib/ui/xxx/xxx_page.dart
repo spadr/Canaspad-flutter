@@ -1,7 +1,7 @@
-import 'package:flapp/gen/assets.gen.dart';
-import 'package:flapp/ui/hooks/use_l10n.dart';
-import 'package:flapp/ui/theme/app_text_theme.dart';
-import 'package:flapp/ui/theme/app_theme.dart';
+import 'package:canaspad/gen/assets.gen.dart';
+import 'package:canaspad/ui/hooks/use_l10n.dart';
+import 'package:canaspad/ui/theme/app_text_theme.dart';
+import 'package:canaspad/ui/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

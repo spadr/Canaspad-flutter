@@ -1,9 +1,9 @@
 import 'dart:async';
 
+import 'package:canaspad/foundation/constants.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:fimber/fimber.dart';
-import 'package:flapp/foundation/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';

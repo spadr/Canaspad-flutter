@@ -1,5 +1,5 @@
-import 'package:flapp/data/repository/xxx/xxx_repository.dart';
-import 'package:flapp/data/repository/xxx/xxx_repository_impl.dart';
+import 'package:canaspad/data/repository/xxx/xxx_repository.dart';
+import 'package:canaspad/data/repository/xxx/xxx_repository_impl.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'xxx_state.dart';

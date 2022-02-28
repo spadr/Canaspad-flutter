@@ -1,6 +1,6 @@
+import 'package:canaspad/ui/routes/app_route.gr.dart';
+import 'package:canaspad/ui/theme/app_theme.dart';
 import 'package:device_preview/device_preview.dart';
-import 'package:flapp/ui/routes/app_route.gr.dart';
-import 'package:flapp/ui/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/l10n.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
