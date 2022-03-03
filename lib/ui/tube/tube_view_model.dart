@@ -21,7 +21,7 @@ class TubeViewModel extends StateNotifier<AsyncValue<TubeState>> {
   // tubeRepository
   late final TubeRepository tubeRepository = _ref.read(tubeRepositoryProvider);
 
-  // access&refreshToken取得
+  // Get
   Future<void> load() async {
     final result =
         await tubeRepository.tubeGet(accessToken: 'String accessToken');
