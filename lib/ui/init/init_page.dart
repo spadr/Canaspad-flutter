@@ -1,6 +1,7 @@
 //import 'package:canaspad/gen/assets.gen.dart';
 //import 'package:canaspad/ui/hooks/use_l10n.dart';
 //import 'package:canaspad/ui/theme/app_text_theme.dart';
+import 'package:canaspad/ui/auth/auth_view_model.dart';
 import 'package:canaspad/ui/theme/app_theme.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
@@ -21,11 +22,16 @@ class InitPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(appThemeProvider);
-    final state = ref.watch(initViewModelProvider);
+    final initState = ref.watch(initViewModelProvider);
+    final authState = ref.watch(authViewModelProvider);
+    final authModel = ref.watch(authViewModelProvider.notifier);
     //final viewModel = ref.watch(initViewModelProvider.notifier);
     //final l10n = useL10n();
 
-    return state.when(
+    debugPrint(authState.toString());
+    debugPrint(authModel.toString());
+
+    return initState.when(
       data: (data) {
         final item = _createChart(data.res);
         final itemCount = item.length;

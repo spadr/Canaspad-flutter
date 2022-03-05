@@ -5,6 +5,9 @@ part 'auth_state.freezed.dart';
 @freezed
 class AuthState with _$AuthState {
   const factory AuthState({
-    @Default({}) Map<String, dynamic> token,
+    @Default(false) bool accessTokenState,
+    @Default(false) bool refreshTokenState,
+    @Default(false) bool passState,
+    @Default(false) bool idState,
   }) = _AuthState;
 }

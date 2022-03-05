@@ -18,9 +18,16 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$AuthStateTearOff {
   const _$AuthStateTearOff();
 
-  _AuthState call({Map<String, dynamic> token = const {}}) {
+  _AuthState call(
+      {bool accessTokenState = false,
+      bool refreshTokenState = false,
+      bool passState = false,
+      bool idState = false}) {
     return _AuthState(
-      token: token,
+      accessTokenState: accessTokenState,
+      refreshTokenState: refreshTokenState,
+      passState: passState,
+      idState: idState,
     );
   }
 }
@@ -30,7 +37,10 @@ const $AuthState = _$AuthStateTearOff();
 
 /// @nodoc
 mixin _$AuthState {
-  Map<String, dynamic> get token => throw _privateConstructorUsedError;
+  bool get accessTokenState => throw _privateConstructorUsedError;
+  bool get refreshTokenState => throw _privateConstructorUsedError;
+  bool get passState => throw _privateConstructorUsedError;
+  bool get idState => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AuthStateCopyWith<AuthState> get copyWith =>
@@ -41,7 +51,11 @@ mixin _$AuthState {
 abstract class $AuthStateCopyWith<$Res> {
   factory $AuthStateCopyWith(AuthState value, $Res Function(AuthState) then) =
       _$AuthStateCopyWithImpl<$Res>;
-  $Res call({Map<String, dynamic> token});
+  $Res call(
+      {bool accessTokenState,
+      bool refreshTokenState,
+      bool passState,
+      bool idState});
 }
 
 /// @nodoc
@@ -54,13 +68,28 @@ class _$AuthStateCopyWithImpl<$Res> implements $AuthStateCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? token = freezed,
+    Object? accessTokenState = freezed,
+    Object? refreshTokenState = freezed,
+    Object? passState = freezed,
+    Object? idState = freezed,
   }) {
     return _then(_value.copyWith(
-      token: token == freezed
-          ? _value.token
-          : token // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+      accessTokenState: accessTokenState == freezed
+          ? _value.accessTokenState
+          : accessTokenState // ignore: cast_nullable_to_non_nullable
+              as bool,
+      refreshTokenState: refreshTokenState == freezed
+          ? _value.refreshTokenState
+          : refreshTokenState // ignore: cast_nullable_to_non_nullable
+              as bool,
+      passState: passState == freezed
+          ? _value.passState
+          : passState // ignore: cast_nullable_to_non_nullable
+              as bool,
+      idState: idState == freezed
+          ? _value.idState
+          : idState // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -71,7 +100,11 @@ abstract class _$AuthStateCopyWith<$Res> implements $AuthStateCopyWith<$Res> {
           _AuthState value, $Res Function(_AuthState) then) =
       __$AuthStateCopyWithImpl<$Res>;
   @override
-  $Res call({Map<String, dynamic> token});
+  $Res call(
+      {bool accessTokenState,
+      bool refreshTokenState,
+      bool passState,
+      bool idState});
 }
 
 /// @nodoc
@@ -85,13 +118,28 @@ class __$AuthStateCopyWithImpl<$Res> extends _$AuthStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? token = freezed,
+    Object? accessTokenState = freezed,
+    Object? refreshTokenState = freezed,
+    Object? passState = freezed,
+    Object? idState = freezed,
   }) {
     return _then(_AuthState(
-      token: token == freezed
-          ? _value.token
-          : token // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+      accessTokenState: accessTokenState == freezed
+          ? _value.accessTokenState
+          : accessTokenState // ignore: cast_nullable_to_non_nullable
+              as bool,
+      refreshTokenState: refreshTokenState == freezed
+          ? _value.refreshTokenState
+          : refreshTokenState // ignore: cast_nullable_to_non_nullable
+              as bool,
+      passState: passState == freezed
+          ? _value.passState
+          : passState // ignore: cast_nullable_to_non_nullable
+              as bool,
+      idState: idState == freezed
+          ? _value.idState
+          : idState // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -99,15 +147,28 @@ class __$AuthStateCopyWithImpl<$Res> extends _$AuthStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_AuthState implements _AuthState {
-  const _$_AuthState({this.token = const {}});
+  const _$_AuthState(
+      {this.accessTokenState = false,
+      this.refreshTokenState = false,
+      this.passState = false,
+      this.idState = false});
 
   @JsonKey()
   @override
-  final Map<String, dynamic> token;
+  final bool accessTokenState;
+  @JsonKey()
+  @override
+  final bool refreshTokenState;
+  @JsonKey()
+  @override
+  final bool passState;
+  @JsonKey()
+  @override
+  final bool idState;
 
   @override
   String toString() {
-    return 'AuthState(token: $token)';
+    return 'AuthState(accessTokenState: $accessTokenState, refreshTokenState: $refreshTokenState, passState: $passState, idState: $idState)';
   }
 
   @override
@@ -115,12 +176,21 @@ class _$_AuthState implements _AuthState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _AuthState &&
-            const DeepCollectionEquality().equals(other.token, token));
+            const DeepCollectionEquality()
+                .equals(other.accessTokenState, accessTokenState) &&
+            const DeepCollectionEquality()
+                .equals(other.refreshTokenState, refreshTokenState) &&
+            const DeepCollectionEquality().equals(other.passState, passState) &&
+            const DeepCollectionEquality().equals(other.idState, idState));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(token));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(accessTokenState),
+      const DeepCollectionEquality().hash(refreshTokenState),
+      const DeepCollectionEquality().hash(passState),
+      const DeepCollectionEquality().hash(idState));
 
   @JsonKey(ignore: true)
   @override
@@ -129,10 +199,20 @@ class _$_AuthState implements _AuthState {
 }
 
 abstract class _AuthState implements AuthState {
-  const factory _AuthState({Map<String, dynamic> token}) = _$_AuthState;
+  const factory _AuthState(
+      {bool accessTokenState,
+      bool refreshTokenState,
+      bool passState,
+      bool idState}) = _$_AuthState;
 
   @override
-  Map<String, dynamic> get token;
+  bool get accessTokenState;
+  @override
+  bool get refreshTokenState;
+  @override
+  bool get passState;
+  @override
+  bool get idState;
   @override
   @JsonKey(ignore: true)
   _$AuthStateCopyWith<_AuthState> get copyWith =>
