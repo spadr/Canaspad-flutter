@@ -7,7 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'auth_repository.dart';
 
 final apiClientProvider = Provider.autoDispose(
-  (_) => ApiClientImpl(baseUrl: 'https://iot.canaspad.com'),
+  (_) => ApiClientImpl(baseUrl: 'http://192.168.10.123'),
 );
 
 final authRepositoryProvider = Provider<AuthRepository>(
