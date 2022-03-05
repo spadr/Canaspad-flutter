@@ -16,16 +16,15 @@ class AuthViewModel extends StateNotifier<AsyncValue<AuthState>> {
   AuthViewModel({required AutoDisposeStateNotifierProviderRef ref})
       : _ref = ref,
         super(const AsyncLoading()) {
-    idState = false;
-    passState = false;
+    idState = true;
+    passState = true;
     accessTokenState = false;
     refreshTokenState = false;
-    save();
     load();
   }
 
-  bool idState = false;
-  bool passState = false;
+  bool idState = true;
+  bool passState = true;
   bool accessTokenState = false;
   bool refreshTokenState = false;
 
@@ -33,9 +32,10 @@ class AuthViewModel extends StateNotifier<AsyncValue<AuthState>> {
   late final AuthRepository authRepository = _ref.read(authRepositoryProvider);
   late final storage = const FlutterSecureStorage();
 
-  Future<void> save() async {
-    await storage.write(key: 'id', value: 'raspberry@email.com');
-    await storage.write(key: 'pass', value: 'raspberry');
+  bool isntLoggedIn() {
+    bool loggedIn = accessTokenState && refreshTokenState;
+    debugPrint('isLoggedIn:' + loggedIn.toString());
+    return !loggedIn;
   }
 
   Future<void> loadStorage() async {
@@ -43,6 +43,10 @@ class AuthViewModel extends StateNotifier<AsyncValue<AuthState>> {
     String? pass = await storage.read(key: 'pass');
     String? accessToken = await storage.read(key: 'accessToken');
     String? refreshToken = await storage.read(key: 'refreshToken');
+    debugPrint(id.toString());
+    debugPrint(pass.toString());
+    debugPrint(accessToken.toString());
+    debugPrint(refreshToken.toString());
     if (id!.isNotEmpty) {
       idState = true;
     }
@@ -70,6 +74,7 @@ class AuthViewModel extends StateNotifier<AsyncValue<AuthState>> {
         await authRepository.access(id: id.toString(), pass: pass.toString());
     result.when(
       success: (data) async {
+        debugPrint('Get access&refreshToken');
         await storage.write(key: 'refreshToken', value: data['refresh']);
         await storage.write(key: 'accessToken', value: data['access']);
         String? accessToken = await storage.read(key: 'accessToken');
@@ -83,13 +88,21 @@ class AuthViewModel extends StateNotifier<AsyncValue<AuthState>> {
         AsyncValue.data(AuthState(accessTokenState: accessTokenState));
         AsyncValue.data(AuthState(refreshTokenState: refreshTokenState));
       },
-      failure: (error) {
+      failure: (error) async {
         debugPrint('Could not get access&refreshToken');
+        await storage.write(key: 'id', value: '');
+        await storage.write(key: 'pass', value: '');
+        await storage.write(key: 'refreshToken', value: '');
+        await storage.write(key: 'accessToken', value: '');
+        idState = false;
+        passState = false;
         accessTokenState = false;
         refreshTokenState = false;
+        AsyncValue.data(AuthState(idState: idState));
+        AsyncValue.data(AuthState(passState: passState));
         AsyncValue.data(AuthState(accessTokenState: accessTokenState));
         AsyncValue.data(AuthState(refreshTokenState: refreshTokenState));
-        AsyncValue.error(error);
+        //AsyncValue.error(error);
       },
     );
   }
@@ -101,6 +114,7 @@ class AuthViewModel extends StateNotifier<AsyncValue<AuthState>> {
         await authRepository.refresh(refreshToken: refreshToken.toString());
     result.when(
       success: (data) async {
+        debugPrint('Get accessToken');
         await storage.write(key: 'accessToken', value: data['access']);
         String? accessToken = await storage.read(key: 'accessToken');
         if (accessToken!.isNotEmpty) {
@@ -108,8 +122,9 @@ class AuthViewModel extends StateNotifier<AsyncValue<AuthState>> {
         }
         AsyncValue.data(AuthState(accessTokenState: accessTokenState));
       },
-      failure: (error) {
+      failure: (error) async {
         debugPrint('Could not get accessToken');
+        await storage.write(key: 'accessToken', value: '');
         load();
       },
     );
