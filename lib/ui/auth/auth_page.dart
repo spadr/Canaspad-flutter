@@ -19,6 +19,10 @@ class AuthPage extends HookConsumerWidget {
 
     return state.when(
       data: (data) {
+        debugPrint(data.idState.toString());
+        debugPrint(data.passState.toString());
+        debugPrint(data.accessTokenState.toString());
+        debugPrint(data.refreshTokenState.toString());
         return Scaffold(
           body: SafeArea(
             child: Center(
@@ -36,7 +40,7 @@ class AuthPage extends HookConsumerWidget {
                       onPrimary: theme.appColors.onPrimary,
                     ),
                     onPressed: viewModel.revoke,
-                    child: Text(data.token.toString()),
+                    child: Text(data.idState.toString()),
                   ),
                 ],
               ),

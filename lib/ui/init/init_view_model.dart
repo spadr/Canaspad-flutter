@@ -21,14 +21,13 @@ class InitViewModel extends StateNotifier<AsyncValue<InitState>> {
 
   // initRepository
   late final InitRepository initRepository = _ref.read(initRepositoryProvider);
+  late final storage = const FlutterSecureStorage();
 
   // Get
   Future<void> load() async {
-    const storage = FlutterSecureStorage();
-    const token = 'token';
-    await storage.write(key: 'accessToken', value: token);
-    String? value = await storage.read(key: 'accessToken');
-    final result = await initRepository.initGet(accessToken: value.toString());
+    String? accessToken = await storage.read(key: 'accessToken');
+    final result =
+        await initRepository.initGet(accessToken: accessToken.toString());
     result.when(
       success: (data) {
         state = AsyncValue.data(
