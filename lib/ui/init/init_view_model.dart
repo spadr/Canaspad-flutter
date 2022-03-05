@@ -1,6 +1,7 @@
 import 'package:canaspad/data/repository/init/init_repository.dart';
 import 'package:canaspad/data/repository/init/init_repository_impl.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'init_state.dart';
@@ -23,8 +24,11 @@ class InitViewModel extends StateNotifier<AsyncValue<InitState>> {
 
   // Get
   Future<void> load() async {
-    final result =
-        await initRepository.initGet(accessToken: 'String accessToken');
+    const storage = FlutterSecureStorage();
+    const token = 'token';
+    await storage.write(key: 'accessToken', value: token);
+    String? value = await storage.read(key: 'accessToken');
+    final result = await initRepository.initGet(accessToken: value.toString());
     result.when(
       success: (data) {
         state = AsyncValue.data(
