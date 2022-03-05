@@ -7,7 +7,7 @@ class AuthState with _$AuthState {
   const factory AuthState({
     @Default(false) bool accessTokenState,
     @Default(false) bool refreshTokenState,
-    @Default(false) bool passState,
-    @Default(false) bool idState,
+    @Default(true) bool passState,
+    @Default(true) bool idState,
   }) = _AuthState;
 }

@@ -1,3 +1,5 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:canaspad/ui/auth/auth_view_model.dart';
 import 'package:canaspad/ui/routes/app_route.gr.dart';
 import 'package:canaspad/ui/theme/app_theme.dart';
 import 'package:device_preview/device_preview.dart';
@@ -15,20 +17,30 @@ class MyApp extends HookConsumerWidget {
     final theme = ref.watch(appThemeProvider);
     final themeMode = ref.watch(appThemeModeProvider);
     final appRouter = useMemoized(() => AppRouter());
+    final authModel = ref.watch(authViewModelProvider.notifier);
 
     return Sizer(
       builder: (context, orientation, deviceType) => MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        useInheritedMediaQuery: true,
-        theme: theme.data,
-        darkTheme: AppTheme.dark().data,
-        themeMode: themeMode,
-        locale: DevicePreview.locale(context),
-        localizationsDelegates: L10n.localizationsDelegates,
-        supportedLocales: L10n.supportedLocales,
-        routeInformationParser: appRouter.defaultRouteParser(),
-        routerDelegate: appRouter.delegate(),
-      ),
+          debugShowCheckedModeBanner: false,
+          useInheritedMediaQuery: true,
+          theme: theme.data,
+          darkTheme: AppTheme.dark().data,
+          themeMode: themeMode,
+          locale: DevicePreview.locale(context),
+          localizationsDelegates: L10n.localizationsDelegates,
+          supportedLocales: L10n.supportedLocales,
+          //routeInformationParser: appRouter.defaultRouteParser(),
+          routerDelegate: AutoRouterDelegate.declarative(
+            appRouter,
+            routes: (_) => [
+              if (authModel.isntLoggedIn())
+                const AuthRoute()
+              else
+                const InitRoute()
+            ],
+          ),
+          routeInformationParser:
+              appRouter.defaultRouteParser(includePrefixMatches: false)),
     );
   }
 }

@@ -23,14 +23,12 @@ class InitPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(appThemeProvider);
     final initState = ref.watch(initViewModelProvider);
-    final authState = ref.watch(authViewModelProvider);
+    //final authState = ref.watch(authViewModelProvider);
     final authModel = ref.watch(authViewModelProvider.notifier);
-    //final viewModel = ref.watch(initViewModelProvider.notifier);
+    //final initModel = ref.watch(initViewModelProvider.notifier);
     //final l10n = useL10n();
 
-    debugPrint(authState.toString());
     debugPrint(authModel.toString());
-
     return initState.when(
       data: (data) {
         final item = _createChart(data.res);
@@ -56,11 +54,11 @@ class InitPage extends HookConsumerWidget {
             items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.contacts),
-                label: 'Latest',
+                label: 'Sensing',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.map),
-                label: 'Sensing',
+                label: 'Latest',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.chat),

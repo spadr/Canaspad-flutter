@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:canaspad/ui/auth/auth_page.dart';
+//import 'package:canaspad/ui/auth/login_page.dart';
 import 'package:canaspad/ui/init/init_page.dart';
 import 'package:canaspad/ui/routes/route_path.dart';
 
@@ -9,7 +10,7 @@ import 'package:canaspad/ui/routes/route_path.dart';
 
 @AdaptiveAutoRouter(
   replaceInRouteName: 'Page,Route',
-  routes: [
+  routes: <AutoRoute>[
     AutoRoute(
       path: RoutePath.appRouteInit,
       page: InitPage,

@@ -21,8 +21,8 @@ class _$AuthStateTearOff {
   _AuthState call(
       {bool accessTokenState = false,
       bool refreshTokenState = false,
-      bool passState = false,
-      bool idState = false}) {
+      bool passState = true,
+      bool idState = true}) {
     return _AuthState(
       accessTokenState: accessTokenState,
       refreshTokenState: refreshTokenState,
@@ -150,8 +150,8 @@ class _$_AuthState implements _AuthState {
   const _$_AuthState(
       {this.accessTokenState = false,
       this.refreshTokenState = false,
-      this.passState = false,
-      this.idState = false});
+      this.passState = true,
+      this.idState = true});
 
   @JsonKey()
   @override
