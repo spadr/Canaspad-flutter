@@ -1,22 +1,22 @@
 //import 'package:canaspad/gen/assets.gen.dart';
 //import 'package:canaspad/ui/hooks/use_l10n.dart';
 //import 'package:canaspad/ui/theme/app_text_theme.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:canaspad/ui/auth/auth_view_model.dart';
-import 'package:canaspad/ui/init/init_page_control.dart';
+import 'package:canaspad/ui/init/init_page.dart';
 import 'package:canaspad/ui/init/init_page_latest.dart';
 import 'package:canaspad/ui/init/init_page_setting.dart';
 import 'package:canaspad/ui/theme/app_theme.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:auto_route/auto_route.dart';
 
+import 'init_view_model.dart';
 import 'bottom_bar_item.dart';
 import 'charts.dart';
-import 'init_view_model.dart';
 
-class InitPage extends HookConsumerWidget {
-  const InitPage({Key? key}) : super(key: key);
+class InitControlPage extends HookConsumerWidget {
+  const InitControlPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -117,8 +117,8 @@ class InitPage extends HookConsumerWidget {
       List<Map<String, dynamic>> channelsTube = [];
       for (var tube in input['tubes']) {
         if (tube['channel'] == chset) {
-          //操作につかう変数は表示しない
-          if (!tube['is_variable']) {
+          //操作につかう変数を表示
+          if (tube['is_variable']) {
             channelsTube.add(tube);
           }
         }
