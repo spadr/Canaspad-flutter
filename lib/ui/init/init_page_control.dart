@@ -1,10 +1,9 @@
 //import 'package:canaspad/gen/assets.gen.dart';
 //import 'package:canaspad/ui/hooks/use_l10n.dart';
 //import 'package:canaspad/ui/theme/app_text_theme.dart';
+
 import 'package:auto_route/auto_route.dart';
-import 'package:canaspad/ui/auth/auth_page.dart';
-import 'package:canaspad/ui/auth/auth_view_model.dart';
-import 'package:canaspad/ui/init/init_page_control.dart';
+import 'package:canaspad/ui/init/init_page.dart';
 import 'package:canaspad/ui/init/init_page_latest.dart';
 import 'package:canaspad/ui/init/init_page_setting.dart';
 import 'package:canaspad/ui/theme/app_theme.dart';
@@ -16,15 +15,15 @@ import 'bottom_bar_item.dart';
 import 'charts.dart';
 import 'init_view_model.dart';
 
-class InitPage extends HookConsumerWidget {
-  const InitPage({Key? key}) : super(key: key);
+class InitControlPage extends HookConsumerWidget {
+  const InitControlPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(appThemeProvider);
     final initState = ref.watch(initViewModelProvider);
     //final authState = ref.watch(authViewModelProvider);
-    final authModel = ref.watch(authViewModelProvider.notifier);
+    //final authModel = ref.watch(authViewModelProvider.notifier);
     final initModel = ref.watch(initViewModelProvider.notifier);
     //final l10n = useL10n();
 
@@ -81,18 +80,16 @@ class InitPage extends HookConsumerWidget {
           ),
         );
       },
-      error: (e, msg) {
-        return Scaffold(
-          body: SafeArea(
-            child: Center(
-              child: Text(
-                e.toString(),
-                style: theme.textTheme.h30,
-              ),
+      error: (e, msg) => Scaffold(
+        body: SafeArea(
+          child: Center(
+            child: Text(
+              e.toString(),
+              style: theme.textTheme.h30,
             ),
           ),
-        );
-      },
+        ),
+      ),
       loading: () => Scaffold(
         body: SafeArea(
           child: Center(
@@ -106,7 +103,6 @@ class InitPage extends HookConsumerWidget {
   }
 
   List<Widget> createChart(Map<String, dynamic> input) {
-    debugPrint('user:' + input.toString());
     List<Widget> widget = [];
     List<String> channels = [];
     for (var tube in input['tubes']) {
@@ -120,8 +116,8 @@ class InitPage extends HookConsumerWidget {
       List<Map<String, dynamic>> channelsTube = [];
       for (var tube in input['tubes']) {
         if (tube['channel'] == chset) {
-          //操作につかう変数は表示しない
-          if (!tube['is_variable']) {
+          //操作につかう変数を表示
+          if (tube['is_variable']) {
             channelsTube.add(tube);
           }
         }
@@ -131,7 +127,6 @@ class InitPage extends HookConsumerWidget {
 
     for (var chNumber in List.generate(channels.length, (i) => i)) {
       if (channelsTubes[chNumber].isNotEmpty) {
-        //debugPrint('channelsTube:' + channelsTubes[chNumber].toString());
         widget.add(SizedBox(
             height: 200,
             child: charts.TimeSeriesChart(

@@ -21,26 +21,26 @@ class MyApp extends HookConsumerWidget {
 
     return Sizer(
       builder: (context, orientation, deviceType) => MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          useInheritedMediaQuery: true,
-          theme: theme.data,
-          darkTheme: AppTheme.dark().data,
-          themeMode: themeMode,
-          locale: DevicePreview.locale(context),
-          localizationsDelegates: L10n.localizationsDelegates,
-          supportedLocales: L10n.supportedLocales,
-          //routeInformationParser: appRouter.defaultRouteParser(),
-          routerDelegate: AutoRouterDelegate.declarative(
-            appRouter,
-            routes: (_) => [
-              if (authModel.isntLoggedIn())
-                const AuthRoute()
-              else
-                const InitRoute()
-            ],
-          ),
-          routeInformationParser:
-              appRouter.defaultRouteParser(includePrefixMatches: false)),
+        debugShowCheckedModeBanner: false,
+        useInheritedMediaQuery: true,
+        theme: theme.data,
+        darkTheme: AppTheme.dark().data,
+        themeMode: themeMode,
+        locale: DevicePreview.locale(context),
+        localizationsDelegates: L10n.localizationsDelegates,
+        supportedLocales: L10n.supportedLocales,
+        routeInformationParser: appRouter.defaultRouteParser(),
+        routerDelegate: AutoRouterDelegate.declarative(
+          appRouter,
+          routes: (_) => [
+            if (authModel.isntLoggedIn())
+              const AuthRoute()
+            else
+              const InitRoute()
+          ],
+        ),
+        //routeInformationParser:appRouter.defaultRouteParser(includePrefixMatches: false)
+      ),
     );
   }
 }
