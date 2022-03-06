@@ -1,7 +1,8 @@
 //import 'package:canaspad/gen/assets.gen.dart';
 //import 'package:canaspad/ui/hooks/use_l10n.dart';
 //import 'package:canaspad/ui/theme/app_text_theme.dart';
-import 'package:canaspad/ui/auth/auth_view_model.dart';
+
+import 'package:auto_route/auto_route.dart';
 import 'package:canaspad/ui/init/init_page.dart';
 import 'package:canaspad/ui/init/init_page_latest.dart';
 import 'package:canaspad/ui/init/init_page_setting.dart';
@@ -9,11 +10,10 @@ import 'package:canaspad/ui/theme/app_theme.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:auto_route/auto_route.dart';
 
-import 'init_view_model.dart';
 import 'bottom_bar_item.dart';
 import 'charts.dart';
+import 'init_view_model.dart';
 
 class InitControlPage extends HookConsumerWidget {
   const InitControlPage({Key? key}) : super(key: key);
@@ -23,7 +23,7 @@ class InitControlPage extends HookConsumerWidget {
     final theme = ref.watch(appThemeProvider);
     final initState = ref.watch(initViewModelProvider);
     //final authState = ref.watch(authViewModelProvider);
-    final authModel = ref.watch(authViewModelProvider.notifier);
+    //final authModel = ref.watch(authViewModelProvider.notifier);
     final initModel = ref.watch(initViewModelProvider.notifier);
     //final l10n = useL10n();
 
@@ -103,7 +103,6 @@ class InitControlPage extends HookConsumerWidget {
   }
 
   List<Widget> createChart(Map<String, dynamic> input) {
-    debugPrint('user:' + input.toString());
     List<Widget> widget = [];
     List<String> channels = [];
     for (var tube in input['tubes']) {
@@ -128,7 +127,6 @@ class InitControlPage extends HookConsumerWidget {
 
     for (var chNumber in List.generate(channels.length, (i) => i)) {
       if (channelsTubes[chNumber].isNotEmpty) {
-        //debugPrint('channelsTube:' + channelsTubes[chNumber].toString());
         widget.add(SizedBox(
             height: 200,
             child: charts.TimeSeriesChart(

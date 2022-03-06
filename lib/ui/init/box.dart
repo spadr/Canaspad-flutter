@@ -1,5 +1,3 @@
-import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LinearElement {
@@ -11,7 +9,6 @@ class LinearElement {
 }
 
 Widget createElement(List<Map<String, dynamic>> inputs) {
-  //debugPrint('tubess:' + inputs.toString());
   List<Widget> cols = [];
   String ch = "";
   var color = Colors.green;
@@ -73,7 +70,6 @@ Widget createElement(List<Map<String, dynamic>> inputs) {
 }
 
 LinearElement parseElement(List<dynamic> input, int interval) {
-  //debugPrint(input.toString());
   List<LinearElement> parsed = [];
   var element = input[0];
   if (element.isNotEmpty) {
@@ -100,8 +96,6 @@ LinearElement parseElement(List<dynamic> input, int interval) {
 }
 
 String fromAtNow(DateTime date) {
-  //debugPrint("INPUT:" + date.toString());
-  //debugPrint("NOW:" + DateTime.now().toUtc().toString());
   final Duration difference = DateTime.now().toUtc().difference(date);
   final int sec = difference.inSeconds;
 

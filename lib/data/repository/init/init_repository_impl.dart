@@ -17,6 +17,7 @@ class InitRepositoryImpl implements InitRepository {
   InitRepositoryImpl({required this.apiClient});
   final ApiClient apiClient;
   static const initJsonEndPoint = '/api/init/';
+  static const userJsonEndPoint = '/api/user/';
 
   @override
   Future<Result<Map<String, dynamic>>> initGet(
@@ -28,6 +29,25 @@ class InitRepositoryImpl implements InitRepository {
     return Result.guardFuture(() async {
       final responseBody =
           await apiClient.get(initJsonEndPoint, headers: header);
+      try {
+        final Map<String, dynamic> decodedJson = json.decode(responseBody);
+        return decodedJson;
+      } on Exception catch (error) {
+        throw Exception('Json decode error: $error');
+      }
+    });
+  }
+
+  @override
+  Future<Result<Map<String, dynamic>>> userPut(
+      {required String accessToken, required Object? body}) async {
+    final header = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+    return Result.guardFuture(() async {
+      final responseBody =
+          await apiClient.put(userJsonEndPoint, headers: header, body: body);
       try {
         final Map<String, dynamic> decodedJson = json.decode(responseBody);
         return decodedJson;

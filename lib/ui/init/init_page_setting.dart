@@ -1,19 +1,13 @@
 //import 'package:canaspad/gen/assets.gen.dart';
 //import 'package:canaspad/ui/hooks/use_l10n.dart';
 //import 'package:canaspad/ui/theme/app_text_theme.dart';
-// ignore_for_file: prefer_const_constructors
-import 'package:flutter/material.dart';
 
 import 'package:auto_route/auto_route.dart';
-
 import 'package:canaspad/ui/auth/auth_view_model.dart';
-
 import 'package:canaspad/ui/init/init_page.dart';
 import 'package:canaspad/ui/init/init_page_control.dart';
 import 'package:canaspad/ui/init/init_page_latest.dart';
-
 import 'package:canaspad/ui/theme/app_theme.dart';
-
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -32,8 +26,6 @@ class InitSettingPage extends HookConsumerWidget {
     final authModel = ref.watch(authViewModelProvider.notifier);
     final initModel = ref.watch(initViewModelProvider.notifier);
     //final l10n = useL10n();
-
-    final _formKey = GlobalKey<FormState>();
 
     void _onTap(int index) {
       debugPrint(index.toString());
@@ -64,51 +56,98 @@ class InitSettingPage extends HookConsumerWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  // メールアドレス入力
-                  TextFormField(
-                    decoration: const InputDecoration(labelText: 'メールアドレス'),
-                    onChanged: (value) async {
-                      debugPrint(value.toString());
+                  SwitchListTile(
+                    value: data.res['user']['alive_monitoring'],
+                    title: Text(
+                      '死活監視機能',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onChanged: (value) {
+                      initModel.turnAliveMonitoring(value);
+                      context.router.root.pushWidget(const InitSettingPage());
                     },
                   ),
-                  // パスワード入力
-                  TextFormField(
-                    decoration: const InputDecoration(labelText: 'パスワード'),
-                    obscureText: true,
-                    onChanged: (value) async {
-                      debugPrint(value.toString());
+                  SwitchListTile(
+                    value: data.res['user']['send_message_to_email'],
+                    title: Text(
+                      '死活監視結果をEmailへ通知',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onChanged: (value) {
+                      initModel.turnSendMessageToEmail(value);
+                      context.router.root.pushWidget(const InitSettingPage());
                     },
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    // メッセージ表示
-                    child: Text('infoText'),
+                  SwitchListTile(
+                    value: data.res['user']['send_message_to_line'],
+                    title: Text(
+                      '死活監視結果をLINEへ通知',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onChanged: (value) {
+                      initModel.turnSendMessageToLine(value);
+                      context.router.root.pushWidget(const InitSettingPage());
+                    },
+                  ),
+                  SwitchListTile(
+                    value: data.res['user']['send_message_to_slack'],
+                    title: Text(
+                      '死活監視結果をSlackへ通知',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onChanged: (value) {
+                      initModel.turnSendMessageToSlack(value);
+                      context.router.root.pushWidget(const InitSettingPage());
+                    },
+                  ),
+                  TextFormField(
+                    decoration: const InputDecoration(labelText: 'LINEトークン'),
+                    initialValue: data.res['user']['line_token'],
+                    onChanged: (value) async {
+                      initModel.changeLineToken(value);
+                    },
+                  ),
+                  TextFormField(
+                    decoration: const InputDecoration(labelText: 'Slackチャンネル'),
+                    initialValue: data.res['user']['slack_channel'],
+                    onChanged: (value) async {
+                      initModel.changeSlackChannel(value);
+                    },
+                  ),
+                  TextFormField(
+                    decoration: const InputDecoration(labelText: 'Slackトークン'),
+                    initialValue: data.res['user']['slack_token'],
+                    onChanged: (value) async {
+                      initModel.changeSlackToken(value);
+                    },
                   ),
                   SizedBox(
                     width: double.infinity,
-                    // ログインボタン
                     child: ElevatedButton(
-                      child: const Text('ログイン'),
-                      onPressed: () {
+                      child: const Text('送信'),
+                      onPressed: () async {
                         initModel.load();
+                        initModel.userPut();
                         context.router.root.pushWidget(const InitPage());
-                        debugPrint('LOG IN');
                       },
                     ),
                   ),
-                  SizedBox(
-                    width: double.infinity,
-                    // ユーザー登録ボタン
-                    child: ElevatedButton(
-                      child: const Text('ユーザー登録'),
-                      onPressed: () {
-                        debugPrint('SIGN UP');
-                      },
-                    ),
-                  )
                 ],
               ),
             ),
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            items: barItem,
+            type: BottomNavigationBarType.fixed,
+            onTap: _onTap,
           ),
         );
       },
@@ -135,7 +174,6 @@ class InitSettingPage extends HookConsumerWidget {
   }
 
   List<Widget> createChart(Map<String, dynamic> input) {
-    debugPrint('user:' + input.toString());
     List<Widget> widget = [];
     List<String> channels = [];
     for (var tube in input['tubes']) {
@@ -157,7 +195,6 @@ class InitSettingPage extends HookConsumerWidget {
 
     for (var chNumber in List.generate(channels.length, (i) => i)) {
       if (channelsTubes[chNumber].isNotEmpty) {
-        debugPrint('channelsTube:' + channelsTubes[chNumber].toString());
         Widget _titleArea = Container(
             margin: EdgeInsets.all(16.0),
             child: createElement(channelsTubes[chNumber]));

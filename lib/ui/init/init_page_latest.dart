@@ -108,7 +108,6 @@ class InitLatestPage extends HookConsumerWidget {
   }
 
   List<Widget> createChart(Map<String, dynamic> input) {
-    debugPrint('user:' + input.toString());
     List<Widget> widget = [];
     List<String> channels = [];
     for (var tube in input['tubes']) {
@@ -130,7 +129,6 @@ class InitLatestPage extends HookConsumerWidget {
 
     for (var chNumber in List.generate(channels.length, (i) => i)) {
       if (channelsTubes[chNumber].isNotEmpty) {
-        debugPrint('channelsTube:' + channelsTubes[chNumber].toString());
         Widget _titleArea = Container(
             margin: EdgeInsets.all(16.0),
             child: createElement(channelsTubes[chNumber]));

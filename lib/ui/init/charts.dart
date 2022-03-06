@@ -1,5 +1,4 @@
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:flutter/cupertino.dart';
 
 class LinearElement {
   final DateTime time;
@@ -12,7 +11,6 @@ List<charts.Series<LinearElement, DateTime>> createElement(
     List<Map<String, dynamic>> inputs) {
   List<charts.Series<LinearElement, DateTime>> plot = [];
   for (var input in inputs) {
-    //debugPrint('tube:' + input.toString());
     var data = parseElement(input['elements']);
     plot.add(charts.Series<LinearElement, DateTime>(
       id: input['name'],
@@ -26,7 +24,6 @@ List<charts.Series<LinearElement, DateTime>> createElement(
 }
 
 List<LinearElement> parseElement(List<dynamic> input) {
-  //debugPrint(input.toString());
   List<LinearElement> parsed = [];
   for (var element in input) {
     if (element.isNotEmpty) {

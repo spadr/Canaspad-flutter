@@ -2,6 +2,7 @@
 //import 'package:canaspad/ui/hooks/use_l10n.dart';
 //import 'package:canaspad/ui/theme/app_text_theme.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:canaspad/ui/auth/auth_page.dart';
 import 'package:canaspad/ui/auth/auth_view_model.dart';
 import 'package:canaspad/ui/init/init_page_control.dart';
 import 'package:canaspad/ui/init/init_page_latest.dart';
@@ -80,16 +81,18 @@ class InitPage extends HookConsumerWidget {
           ),
         );
       },
-      error: (e, msg) => Scaffold(
-        body: SafeArea(
-          child: Center(
-            child: Text(
-              e.toString(),
-              style: theme.textTheme.h30,
+      error: (e, msg) {
+        return Scaffold(
+          body: SafeArea(
+            child: Center(
+              child: Text(
+                e.toString(),
+                style: theme.textTheme.h30,
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
       loading: () => Scaffold(
         body: SafeArea(
           child: Center(
