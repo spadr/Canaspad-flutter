@@ -2,6 +2,8 @@
 //import 'package:canaspad/ui/hooks/use_l10n.dart';
 //import 'package:canaspad/ui/theme/app_text_theme.dart';
 
+//RiverPodの使い方とStateの管理に問題
+
 import 'package:auto_route/auto_route.dart';
 import 'package:canaspad/ui/auth/auth_view_model.dart';
 import 'package:canaspad/ui/init/init_page.dart';
@@ -147,6 +149,7 @@ class InitSettingPage extends HookConsumerWidget {
           bottomNavigationBar: BottomNavigationBar(
             items: barItem,
             type: BottomNavigationBarType.fixed,
+            currentIndex: 3,
             onTap: _onTap,
           ),
         );

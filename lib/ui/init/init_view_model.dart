@@ -46,6 +46,13 @@ class InitViewModel extends StateNotifier<AsyncValue<InitState>> {
   void turnAliveMonitoring(bool value) {
     final data = state.value!.res;
     data['user']['alive_monitoring'] = value;
+    if (value) {
+      data['user']['send_message_to_email'] = value;
+    } else {
+      data['user']['send_message_to_email'] = value;
+      data['user']['send_message_to_line'] = value;
+      data['user']['send_message_to_slack'] = value;
+    }
     AsyncValue.data(
       InitState(res: data),
     );
@@ -112,12 +119,9 @@ class InitViewModel extends StateNotifier<AsyncValue<InitState>> {
     final result = await initRepository.userPut(
         accessToken: accessToken.toString(), body: userinfo);
     result.when(
-      success: (data) {
-        load();
-      },
+      success: (data) {},
       failure: (error) {
         debugPrint('ERR');
-        load();
       },
     );
   }

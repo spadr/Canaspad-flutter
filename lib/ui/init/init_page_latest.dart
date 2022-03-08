@@ -81,6 +81,7 @@ class InitLatestPage extends HookConsumerWidget {
           bottomNavigationBar: BottomNavigationBar(
             items: barItem,
             type: BottomNavigationBarType.fixed,
+            currentIndex: 1,
             onTap: _onTap,
           ),
         );

@@ -22,24 +22,30 @@ Widget createElement(List<Map<String, dynamic>> inputs) {
       icon = Icons.report_problem;
     }
     cols.add(Container(
-      margin: EdgeInsets.only(bottom: 4.0),
+      margin: EdgeInsets.only(bottom: 4.0, left: 8.0),
+      width: double.infinity,
       child: Text(
         name,
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        style: TextStyle(fontSize: 16.0),
+        textAlign: TextAlign.left,
       ),
     ));
     cols.add(Container(
-      margin: EdgeInsets.only(bottom: 4.0),
+      margin: EdgeInsets.only(bottom: 4.0, left: 8.0),
+      width: double.infinity,
       child: Text(
         data.value,
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35.0),
+        textAlign: TextAlign.center,
       ),
     ));
     cols.add(Container(
-      margin: EdgeInsets.only(bottom: 4.0),
+      margin: EdgeInsets.only(bottom: 4.0, left: 8.0),
+      width: double.infinity,
       child: Text(
         data.time,
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        style: TextStyle(fontSize: 10.0, color: Colors.grey),
+        textAlign: TextAlign.right,
       ),
     ));
   }
@@ -49,15 +55,11 @@ Widget createElement(List<Map<String, dynamic>> inputs) {
       Icon(
         icon,
         color: color,
-        size: 30,
+        size: 27,
       ),
       Text(
         ch,
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
-      ),
-      Text(
-        "  ",
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
       ),
       Expanded(
         // 2.1列目

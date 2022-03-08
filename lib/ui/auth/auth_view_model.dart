@@ -65,6 +65,11 @@ class AuthViewModel extends StateNotifier<AsyncValue<AuthState>> {
     AsyncValue.data(AuthState(refreshTokenState: refreshTokenState));
   }
 
+  void turnToken() {
+    accessTokenState = true;
+    refreshTokenState = true;
+  }
+
   // access&refreshToken取得
   Future<void> load() async {
     loadStorage();

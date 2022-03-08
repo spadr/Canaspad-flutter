@@ -76,6 +76,7 @@ class InitControlPage extends HookConsumerWidget {
           bottomNavigationBar: BottomNavigationBar(
             items: barItem,
             type: BottomNavigationBarType.fixed,
+            currentIndex: 2,
             onTap: _onTap,
           ),
         );
@@ -149,8 +150,8 @@ class InitControlPage extends HookConsumerWidget {
                 domainAxis: const charts.DateTimeAxisSpec(
                   tickFormatterSpec: charts.AutoDateTimeTickFormatterSpec(
                     day: charts.TimeFormatterSpec(
-                      format: 'dd/MM',
-                      transitionFormat: 'dd/MM',
+                      format: 'MM/dd',
+                      transitionFormat: 'MM/dd',
                     ),
                     hour: charts.TimeFormatterSpec(
                         format: 'hh:mm', transitionFormat: 'hh:mm'),

@@ -10,7 +10,7 @@ import 'package:canaspad/ui/init/init_page.dart';
 import 'package:canaspad/ui/init/init_page_control.dart';
 import 'package:canaspad/ui/init/init_page_latest.dart';
 import 'package:canaspad/ui/init/init_page_setting.dart';
-import 'package:canaspad/ui/init/init_view_model.dart';
+//import 'package:canaspad/ui/init/init_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -25,7 +25,7 @@ class AuthPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authModel = ref.watch(authViewModelProvider.notifier);
-    final initModel = ref.watch(initViewModelProvider.notifier);
+    //final initModel = ref.watch(initViewModelProvider.notifier);
 
     void _onTap(int index) {
       debugPrint(index.toString());
@@ -78,7 +78,7 @@ class AuthPage extends HookConsumerWidget {
                   child: const Text('ログイン'),
                   onPressed: () async {
                     await authModel.load();
-                    await initModel.load();
+                    //authModel.turnToken();
                     context.router.root.pushWidget(const InitPage());
                     debugPrint('LOG IN');
                   },
@@ -102,6 +102,7 @@ class AuthPage extends HookConsumerWidget {
       bottomNavigationBar: BottomNavigationBar(
         items: barItem,
         type: BottomNavigationBarType.fixed,
+        currentIndex: 3,
         onTap: _onTap,
       ),
     );
